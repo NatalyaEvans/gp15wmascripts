@@ -40,13 +40,13 @@ class BaseSensitivityAnalysis(object):
 def get_mean_and_stdev_skeletons(ompa_solns):
 
     mean_endmember_fractions =\
-      np.mean([x.endmember_fractions for x in ompa_solns], axis=0)
-    std_endmember_fractions = np.std([
+      np.nanmean([x.endmember_fractions for x in ompa_solns], axis=0)
+    std_endmember_fractions = np.nanstd([
       x.endmember_fractions for x in ompa_solns], axis=0)
 
     mean_param_residuals =\
-      np.mean([x.param_residuals for x in ompa_solns], axis=0)
-    std_param_residuals = np.std([
+      np.nanmean([x.param_residuals for x in ompa_solns], axis=0)
+    std_param_residuals = np.nanstd([
       x.param_residuals for x in ompa_solns], axis=0)
     
     mean_groupname_to_totalconvertedvariable = OrderedDict()
@@ -58,10 +58,10 @@ def get_mean_and_stdev_skeletons(ompa_solns):
     groupnames = ompa_solns[0].groupname_to_totalconvertedvariable.keys()
     for groupname in groupnames:
         mean_groupname_to_totalconvertedvariable[groupname] =\
-          np.mean([x.groupname_to_totalconvertedvariable[groupname]
+          np.nanmean([x.groupname_to_totalconvertedvariable[groupname]
                    for x in ompa_solns], axis=0)
         std_groupname_to_totalconvertedvariable[groupname] =\
-          np.std([x.groupname_to_totalconvertedvariable[groupname]
+          np.nanstd([x.groupname_to_totalconvertedvariable[groupname]
                    for x in ompa_solns], axis=0)
         
         convratiokeys =\
@@ -71,11 +71,11 @@ def get_mean_and_stdev_skeletons(ompa_solns):
 
         for convratiokey in convratiokeys:
           mean_groupname_to_effectiveconversionratios[
-             groupname][convratiokey] = np.mean([
+             groupname][convratiokey] = np.nanmean([
               x.groupname_to_effectiveconversionratios[groupname][convratiokey]
               for x in ompa_solns], axis=0)
           std_groupname_to_effectiveconversionratios[
-             groupname][convratiokey] = np.std([
+             groupname][convratiokey] = np.nanstd([
               x.groupname_to_effectiveconversionratios[groupname][convratiokey]
               for x in ompa_solns], axis=0)
              
